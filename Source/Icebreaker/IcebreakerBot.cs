@@ -171,13 +171,13 @@ namespace Icebreaker
         /// <param name="teamId">The id of the team that the bot is installed to</param>
         /// <param name="botInstaller">The installer of the application</param>
         /// <returns>Tracking task</returns>
-        public async Task WelcomeTeam(ConnectorClient connectorClient, string teamId, string botInstaller)
+        public async Task WelcomeTeam(ConnectorClient connectorClient, string teamId, string channelId, string botInstaller)
         {
             this.telemetryClient.TrackTrace($"Sending welcome message for team {teamId}");
 
             var teamName = await this.GetTeamNameAsync(connectorClient, teamId);
             var welcomeTeamMessageCard = WelcomeTeamAdaptiveCard.GetCard(teamName, this.botDisplayName, botInstaller);
-            await this.NotifyTeam(connectorClient, welcomeTeamMessageCard, teamId);
+            await this.NotifyTeam(connectorClient, welcomeTeamMessageCard, teamId, channelId);
         }
 
         /// <summary>
@@ -355,7 +355,7 @@ namespace Icebreaker
         /// <param name="cardToSend">The actual welcome card (for the team)</param>
         /// <param name="teamId">The team id</param>
         /// <returns>A tracking task</returns>
-        private async Task NotifyTeam(ConnectorClient connectorClient, string cardToSend, string teamId)
+        private async Task NotifyTeam(ConnectorClient connectorClient, string cardToSend, string teamId, string channelId)
         {
             this.telemetryClient.TrackTrace($"Sending notification to team {teamId}");
 
@@ -366,7 +366,7 @@ namespace Icebreaker
                     Type = ActivityTypes.Message,
                     Conversation = new ConversationAccount()
                     {
-                        Id = teamId
+                        Id = channelId
                     },
                     Attachments = new List<Attachment>()
                     {

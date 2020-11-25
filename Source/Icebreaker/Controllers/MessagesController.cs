@@ -165,6 +165,12 @@ namespace Icebreaker
                 var teamsChannelData = message.GetChannelData<TeamsChannelData>();
                 var tenantId = teamsChannelData.Tenant.Id;
 
+                var teamsTeamId = teamsChannelData.Team.Id;
+                var teamsTeamName = teamsChannelData.Team.Name;
+
+                var channelId = teamsChannelData.Channel.Id;
+                var channelName = teamsChannelData.Channel.Name;
+
                 if (message.Type == ActivityTypes.ConversationUpdate)
                 {
                     // conversation-update fires whenever a new 1:1 gets created between us and someone else as well
@@ -191,6 +197,10 @@ namespace Icebreaker
                                     { "Scope", message.Conversation?.ConversationType },
                                     { "TeamId", teamId },
                                     { "InstallerId", message.From.Id },
+                                    { "TeamsTeamId", teamsTeamId },
+                                    { "TeamsTeamName", teamsTeamName },
+                                    { "ChannelId", channelId },
+                                    { "ChannelName", channelName },
                                 };
                                 this.telemetryClient.TrackEvent("AppInstalled", properties);
 
@@ -200,7 +210,7 @@ namespace Icebreaker
                                 var personThatAddedBot = teamMembers.FirstOrDefault(x => x.Id == message.From.Id)?.Name;
 
                                 await this.bot.SaveAddedToTeam(message.ServiceUrl, teamId, tenantId, personThatAddedBot);
-                                await this.bot.WelcomeTeam(connectorClient, teamId, personThatAddedBot);
+                                await this.bot.WelcomeTeam(connectorClient, teamId, channelId, personThatAddedBot);
                             }
                             else
                             {
