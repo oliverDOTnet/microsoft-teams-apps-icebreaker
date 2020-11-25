@@ -165,11 +165,11 @@ namespace Icebreaker
                 var teamsChannelData = message.GetChannelData<TeamsChannelData>();
                 var tenantId = teamsChannelData.Tenant.Id;
 
-                var teamsTeamId = teamsChannelData.Team.Id;
-                var teamsTeamName = teamsChannelData.Team.Name;
+                var teamsTeamId = teamsChannelData.Team?.Id;
+                var teamsTeamName = teamsChannelData.Team?.Name;
 
-                var channelId = teamsChannelData.Channel.Id;
-                var channelName = teamsChannelData.Channel.Name;
+                var channelId = teamsChannelData.Channel?.Id;
+                var channelName = teamsChannelData.Channel?.Name;
 
                 if (message.Type == ActivityTypes.ConversationUpdate)
                 {
