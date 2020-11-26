@@ -295,12 +295,13 @@ namespace Icebreaker
                     string.IsNullOrWhiteSpace(activity.Conversation?.ConversationType) ? "personal" : activity.Conversation.ConversationType
                 },
                 { "ConversationId", activity.Conversation?.Id },
-                { "ConversationChannelName", activity.Conversation?.Name },
+                { "TeamId", channelData?.Team?.Id },
+                /*{ "ConversationChannelName", activity.Conversation?.Name },
                 { "ConversationChannelGroup", activity.Conversation?.IsGroup.Value.ToString() },
                 { "TeamId", channelData?.Team?.Id },
                 { "ChannelId", activity.ChannelId },
                 { "TeamsChannelId", channelData?.Channel?.Id },
-                { "TeamsChannelName", channelData?.Channel?.Name },
+                { "TeamsChannelName", channelData?.Channel?.Name },*/
                 { "Locale", clientInfoEntity?.Properties["locale"]?.ToString() },
                 { "Platform", clientInfoEntity?.Properties["platform"]?.ToString() }
             };
