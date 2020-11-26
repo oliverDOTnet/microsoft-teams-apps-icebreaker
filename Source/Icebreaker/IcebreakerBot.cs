@@ -302,7 +302,7 @@ namespace Icebreaker
             return notifyResults.Count(wasNotified => wasNotified);
         }
 
-        private async Task<bool> NotifyUser(ConnectorClient connectorClient, string cardToSend, ChannelAccount user, string tenantId)
+        public async Task<bool> NotifyUser(ConnectorClient connectorClient, string cardToSend, ChannelAccount user, string tenantId)
         {
             this.telemetryClient.TrackTrace($"Sending notification to user {user.Id}");
 

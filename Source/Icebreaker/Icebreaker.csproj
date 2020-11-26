@@ -195,6 +195,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AdaptiveCards\OptinNotificationAdaptiveCard.cs" />
     <Compile Include="Helpers\AdaptiveCards\PairUpNotificationAdaptiveCard.cs" />
     <Compile Include="Helpers\AdaptiveCards\UnrecognizedInputAdaptiveCard.cs" />
     <Compile Include="Helpers\AdaptiveCards\WelcomeNewMemberAdaptiveCard.cs" />
@@ -223,6 +224,7 @@
     </Content>
     <Content Include="Helpers\AdaptiveCards\WelcomeTeamAdaptiveCard.json" />
     <Content Include="lib\microsoft-teams\dist\MicrosoftTeams.js.map" />
+    <Content Include="Helpers\AdaptiveCards\OptinNotificationAdaptiveCard.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

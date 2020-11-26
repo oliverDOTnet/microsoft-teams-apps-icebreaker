@@ -13,6 +13,7 @@ namespace Icebreaker
     using System.Net.Http;
     using System.Threading.Tasks;
     using System.Web.Http;
+    using Icebreaker.Helpers.AdaptiveCards;
     using Microsoft.ApplicationInsights;
     using Microsoft.ApplicationInsights.DataContracts;
     using Microsoft.Bot.Connector;
@@ -106,8 +107,8 @@ namespace Icebreaker
 
                     await connectorClient.Conversations.ReplyToActivityAsync(optOutReply);
                 }
-                else if (string.Equals(activity.Text, "optin", StringComparison.InvariantCultureIgnoreCase) ||
-                         activity.Value.ToString().Contains("optin"))
+                else if (string.Equals(activity.Text, "optin", StringComparison.InvariantCultureIgnoreCase))
+                    // || activity.Value.ToString().Contains("optin"))
                 {
                     // User opted in
                     this.telemetryClient.TrackTrace($"User {senderAadId} opted in");
@@ -122,8 +123,10 @@ namespace Icebreaker
 
                     await this.bot.OptInUser(tenantId, senderAadId, activity.ServiceUrl);
 
-                    var optInReply = activity.CreateReply();
-                    optInReply.Attachments = new List<Attachment>
+                    var optinCard = OptinNotificationAdaptiveCard.GetCard();
+                    await this.bot.NotifyUser(connectorClient, optinCard, activity.From, tenantId);
+
+                    /*var attachments = new List<Attachment>
                     {
                         new HeroCard()
                         {
@@ -141,7 +144,18 @@ namespace Icebreaker
                         }.ToAttachment(),
                     };
 
-                    await connectorClient.Conversations.ReplyToActivityAsync(optInReply);
+                    if (activity.Type == ActivityTypes.Message)
+                    {
+                        var optInReply = activity.CreateReply();
+                        optInReply.Attachments = attachments;
+
+                        await connectorClient.Conversations.ReplyToActivityAsync(optInReply);
+                    } 
+                    else if (activity.Type == ActivityTypes.Invoke)
+                    {
+                        var optinCard = OptinNotificationAdaptiveCard.GetCard();
+                        await this.bot.NotifyUser(connectorClient, optinCard, activity.From, tenantId);
+                    }*/
                 }
                 else
                 {

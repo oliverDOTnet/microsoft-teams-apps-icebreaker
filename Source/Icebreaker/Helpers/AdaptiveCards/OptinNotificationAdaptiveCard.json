@@ -1,0 +1,28 @@
+﻿{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Welcome! I'll start matching you with your colleagues from now on.",
+          "wrap": true
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "Leave!",
+      "data": {
+        "msteams": {
+          "type": "messageBack",
+          "text": "optout"
+        }
+      }
+    }
+  ],
+  "version": "1.0"
+}
