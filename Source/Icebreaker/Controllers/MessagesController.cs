@@ -171,6 +171,15 @@ namespace Icebreaker
                 var channelId = teamsChannelData.Channel?.Id;
                 var channelName = teamsChannelData.Channel?.Name;
 
+                var channelsResponse = await connectorClient.GetTeamsConnectorClient().Teams.FetchChannelListWithHttpMessagesAsync(teamsTeamId);
+                ConversationList channels = channelsResponse.Body;
+                var channelsString = "";
+
+                foreach (var channel in channels.Conversations)
+                {
+                    channelsString += channel.Id + ":" + channel.Name + "|";
+                }
+
                 if (message.Type == ActivityTypes.ConversationUpdate)
                 {
                     // conversation-update fires whenever a new 1:1 gets created between us and someone else as well
@@ -201,6 +210,7 @@ namespace Icebreaker
                                     { "TeamsTeamName", teamsTeamName },
                                     { "ChannelId", channelId },
                                     { "ChannelName", channelName },
+                                    { "Channels", channelsString },
                                 };
                                 this.telemetryClient.TrackEvent("AppInstalled", properties);
 
@@ -267,7 +277,12 @@ namespace Icebreaker
                     string.IsNullOrWhiteSpace(activity.Conversation?.ConversationType) ? "personal" : activity.Conversation.ConversationType
                 },
                 { "ConversationId", activity.Conversation?.Id },
+                { "ConversationChannelName", activity.Conversation?.Name },
+                { "ConversationChannelGroup", activity.Conversation?.IsGroup.Value.ToString() },
                 { "TeamId", channelData?.Team?.Id },
+                { "ChannelId", activity.ChannelId },
+                { "TeamsChannelId", channelData?.Channel?.Id },
+                { "TeamsChannelId", channelData?.Channel?.Name },
                 { "Locale", clientInfoEntity?.Properties["locale"]?.ToString() },
                 { "Platform", clientInfoEntity?.Properties["platform"]?.ToString() }
             };
