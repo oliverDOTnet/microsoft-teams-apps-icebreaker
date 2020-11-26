@@ -171,6 +171,8 @@ namespace Icebreaker
                 var channelId = teamsChannelData.Channel?.Id;
                 var channelName = teamsChannelData.Channel?.Name;
 
+                channelId = "19:135bee4d6be940a9a6e830b30b47f096@thread.tacv2"; // Temporary fallback
+
                 var channelsResponse = await connectorClient.GetTeamsConnectorClient().Teams.FetchChannelListWithHttpMessagesAsync(teamsTeamId);
                 ConversationList channels = channelsResponse.Body;
                 var channelsString = "";
