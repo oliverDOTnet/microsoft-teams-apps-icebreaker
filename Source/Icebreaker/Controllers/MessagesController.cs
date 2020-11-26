@@ -107,7 +107,7 @@ namespace Icebreaker
                     await connectorClient.Conversations.ReplyToActivityAsync(optOutReply);
                 }
                 else if (string.Equals(activity.Text, "optin", StringComparison.InvariantCultureIgnoreCase) ||
-                         string.Equals(activity.Value.ToString(), "optin", StringComparison.InvariantCultureIgnoreCase))
+                         activity.Value.ToString().Contains("optin"))
                 {
                     // User opted in
                     this.telemetryClient.TrackTrace($"User {senderAadId} opted in");
@@ -116,6 +116,7 @@ namespace Icebreaker
                     {
                         { "UserAadId", senderAadId },
                         { "OptInStatus", "true" },
+                        { "Invoke Value", activity.Value?.ToString() },
                     };
                     this.telemetryClient.TrackEvent("UserOptInStatusSet", properties);
 

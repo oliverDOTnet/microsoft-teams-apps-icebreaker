@@ -51,7 +51,7 @@
     {
       "type": "Action.Submit",
       "title": "Join!",
-      "value": "optin"
+      "value": "{\"invokeValue\": \"optin\"}"
     }
   ],
   "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
