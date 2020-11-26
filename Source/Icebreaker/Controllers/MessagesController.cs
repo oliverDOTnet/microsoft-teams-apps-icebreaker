@@ -51,7 +51,7 @@ namespace Icebreaker
 
             using (var connectorClient = new ConnectorClient(new Uri(activity.ServiceUrl)))
             {
-                if (activity.Type == ActivityTypes.Message)
+                if (activity.Type == ActivityTypes.Message || activity.Type == ActivityTypes.Invoke)
                 {
                     await this.HandleMessageActivity(connectorClient, activity);
                 }
@@ -106,7 +106,8 @@ namespace Icebreaker
 
                     await connectorClient.Conversations.ReplyToActivityAsync(optOutReply);
                 }
-                else if (string.Equals(activity.Text, "optin", StringComparison.InvariantCultureIgnoreCase))
+                else if (string.Equals(activity.Text, "optin", StringComparison.InvariantCultureIgnoreCase) ||
+                         string.Equals(activity.Value.ToString(), "optin", StringComparison.InvariantCultureIgnoreCase))
                 {
                     // User opted in
                     this.telemetryClient.TrackTrace($"User {senderAadId} opted in");

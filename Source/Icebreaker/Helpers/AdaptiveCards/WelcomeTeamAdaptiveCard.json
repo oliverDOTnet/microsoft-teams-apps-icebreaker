@@ -47,6 +47,11 @@
       "type": "Action.OpenUrl",
       "title": "%tourButtonText%",
       "url": "%tourUrl%"
+    },
+    {
+      "type": "invoke",
+      "title": "Join!",
+      "value": "optin"
     }
   ],
   "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
