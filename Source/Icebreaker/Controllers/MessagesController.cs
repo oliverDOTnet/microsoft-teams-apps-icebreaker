@@ -282,7 +282,7 @@ namespace Icebreaker
                 { "TeamId", channelData?.Team?.Id },
                 { "ChannelId", activity.ChannelId },
                 { "TeamsChannelId", channelData?.Channel?.Id },
-                { "TeamsChannelId", channelData?.Channel?.Name },
+                { "TeamsChannelName", channelData?.Channel?.Name },
                 { "Locale", clientInfoEntity?.Properties["locale"]?.ToString() },
                 { "Platform", clientInfoEntity?.Properties["platform"]?.ToString() }
             };
