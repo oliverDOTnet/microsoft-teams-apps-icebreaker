@@ -49,7 +49,7 @@
       "url": "%tourUrl%"
     },
     {
-      "type": "invoke",
+      "type": "Action.Submit",
       "title": "Join!",
       "value": "optin"
     }
